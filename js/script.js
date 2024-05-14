@@ -1,3 +1,6 @@
+let humanScore = 0;
+let computerScore = 0;
+
 function getComputerChoice() {
   // declare a list of strings containing "rock","paper,"scissors"
   const CHOICES = ['rock', 'paper', 'scissors'];
