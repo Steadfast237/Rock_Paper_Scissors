@@ -92,7 +92,23 @@ function capitalize(_string) {
   return firstLetter + _string.slice(1).toLowerCase();
 }
 
-const humanSelection = getHumanChoice();
-const computerSelection = getComputerChoice();
+function playGame() {
+  // Loop from 1 to the 5
+  for (let round = 1; round <= 5; round++) {
+    // play a round
+    playRound(getHumanChoice(), getComputerChoice());
+  }
 
-playRound(humanSelection, computerSelection);
+  // check winner
+  // PLAYER
+  if (humanScore > computerScore) {
+    console.log(
+      `human scored ${humanScore} : computer scored ${computerScore}`
+    );
+    console.log('Human won the GAME!!');
+    return;
+  }
+  // COMPUTER
+  console.log(`human scored ${humanScore} : computer scored ${computerScore}`);
+  console.log('Computer won the GAME!!');
+}
