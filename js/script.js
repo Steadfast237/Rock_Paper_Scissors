@@ -1,15 +1,14 @@
+const CHOICES = ['rock', 'paper', 'scissors'];
+
 let humanScore = 0;
 let computerScore = 0;
 
 function getComputerChoice() {
-  //1- declare a list of strings containing "rock","paper,"scissors"
-  const CHOICES = ['rock', 'paper', 'scissors'];
-
-  //2- randomly select a string from the list
+  //1- randomly select a string from the list
   const randomNumber = Math.floor(Math.random() * CHOICES.length);
   const selectedString = CHOICES[randomNumber];
 
-  //3- return the selected string
+  //2- return the selected string
   return selectedString;
 }
 
@@ -20,19 +19,14 @@ function getHumanChoice() {
   paper
   scissors`).toLowerCase();
 
-  //2- declare a list of strings containing "rock","paper,"scissors"
-  const CHOICES = ['rock', 'paper', 'scissors'];
-
-  //3- check if the user input matches one of the strings in (2)
+  //2- check if the user input matches one of the strings in (2)
   if (CHOICES.includes(userChoice)) {
     return userChoice;
   }
 
-  //4- if not prompt back the user to make the correct choice
+  //3- if not prompt back the user to make the correct choice
   return getHumanChoice();
 }
-
-// Rock beats scissors, scissors beat paper, and paper beats rock.
 
 function playRound(humanChoice, computerChoice) {
   //1- check if human choice beats the computer choice
