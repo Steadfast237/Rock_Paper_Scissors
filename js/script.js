@@ -1,4 +1,7 @@
 const CHOICES = ['rock', 'paper', 'scissors'];
+const buttons = document.querySelectorAll('.btn');
+const output = document.querySelector('.output');
+const outputScore = document.querySelector('.output-score');
 
 let humanScore = 0;
 let computerScore = 0;
@@ -30,66 +33,75 @@ function playRound(humanChoice, computerChoice) {
 
   if (humanChoice === 'rock' && computerChoice === 'scissors') {
     humanScore++;
-
-    console.log('You Win! Rock beats Scissors');
-    console.log(humanScore);
+    showResult(`You Win! Rock beats Scissors`, output);
     return;
   }
 
   if (humanChoice === 'scissors' && computerChoice === 'paper') {
     humanScore++;
-
-    console.log('You Win! Scissors beats Paper');
-    console.log(humanScore);
+    showResult(`You Win! Scissors beats Paper`, output);
     return;
   }
 
   if (humanChoice === 'paper' && computerChoice === 'rock') {
     humanScore++;
-
-    console.log('You Win! Paper beats Rock');
-    console.log(humanScore);
+    showResult(`You Win! Paper beats Rock`, output);
     return;
   }
 
   if (humanChoice === computerChoice) {
-    console.log(
-      `No Winner! ${capitalize(humanChoice)} draws ${capitalize(humanChoice)}`
+    showResult(
+      `No Winner! ${capitalize(humanChoice)} draws ${capitalize(humanChoice)}`,
+      output
     );
-    console.log(humanScore, computerScore);
     return;
   }
 
   computerScore++;
-
-  console.log(
-    `You lose! ${capitalize(computerChoice)} beats ${capitalize(humanChoice)}`
+  showResult(
+    `You lose! ${capitalize(computerChoice)} beats ${capitalize(humanChoice)}`,
+    output
   );
-  console.log(computerScore);
   return;
 }
 
 function capitalize(_string) {
-  //1- pick the first letter in the string
   const firstLetter = _string.slice(0, 1).toUpperCase();
 
-  //2- join and return the newly formed string
   return firstLetter + _string.slice(1).toLowerCase();
 }
 
-function playGame() {
-  for (let round = 1; round <= 5; round++) {
-    playRound(getHumanChoice(), getComputerChoice());
-  }
-
-  if (humanScore > computerScore) {
-    console.log(
-      `human scored ${humanScore} : computer scored ${computerScore}`
-    );
-    console.log('Human won the GAME!!');
-    return;
-  }
-
-  console.log(`human scored ${humanScore} : computer scored ${computerScore}`);
-  console.log('Computer won the GAME!!');
+function addClick(node) {
+  node.addEventListener('click', playGame);
 }
+
+function showResult(message, node) {
+  node.textContent = message;
+}
+
+function playGame(e) {
+  playRound(e.target.getAttribute('id'), getComputerChoice());
+
+  showResult(
+    `human score ${humanScore} : computer score ${computerScore}`,
+    outputScore
+  );
+
+  if (humanScore === 5 || computerScore === 5) {
+    if (humanScore > computerScore) {
+      showResult(`Human won the GAME!!`, output);
+
+      buttons.forEach((btn) => (btn.disabled = true));
+      return;
+    }
+
+    showResult(`Computer won the GAME!!`, output);
+    buttons.forEach((btn) => (btn.disabled = true));
+  }
+}
+
+buttons.forEach(addClick);
+showResult(
+  `human score ${humanScore} : computer score ${computerScore}`,
+  outputScore
+);
